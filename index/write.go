@@ -149,34 +149,34 @@ func (ix *IndexWriter) Add(name string, f io.Reader) {
 		if n++; n >= 3 {
 			ix.trigram.Add(tv)
 		}
-		if !validUTF8((tv>>8)&0xFF, tv&0xFF) {
-			if ix.LogSkip {
-				log.Printf("%s: invalid UTF-8, ignoring\n", name)
-			}
-			return
-		}
-		if n > maxFileLen {
-			if ix.LogSkip {
-				log.Printf("%s: too long, ignoring\n", name)
-			}
-			return
-		}
-		if linelen++; linelen > maxLineLen {
-			if ix.LogSkip {
-				log.Printf("%s: very long lines, ignoring\n", name)
-			}
-			return
-		}
+		//if !validUTF8((tv>>8)&0xFF, tv&0xFF) {
+		//	if ix.LogSkip {
+		//		log.Printf("%s: invalid UTF-8, ignoring\n", name)
+		//	}
+		//	return
+		//}
+		//if n > maxFileLen {
+		//	if ix.LogSkip {
+		//		log.Printf("%s: too long, ignoring\n", name)
+		//	}
+		//	return
+		//}
+		//if linelen++; linelen > maxLineLen {
+		//	if ix.LogSkip {
+		//		log.Printf("%s: very long lines, ignoring\n", name)
+		//	}
+		//	return
+		//}
 		if c == '\n' {
 			linelen = 0
 		}
 	}
-	if ix.trigram.Len() > maxTextTrigrams {
-		if ix.LogSkip {
-			log.Printf("%s: too many trigrams, probably not text, ignoring\n", name)
-		}
-		return
-	}
+	// if ix.trigram.Len() > maxTextTrigrams {
+	//	if ix.LogSkip {
+	//		log.Printf("%s: too many trigrams, probably not text, ignoring\n", name)
+	//	}
+	//	return
+	//}
 	ix.totalBytes += n
 
 	if ix.Verbose {
